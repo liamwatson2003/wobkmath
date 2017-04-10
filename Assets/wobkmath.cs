@@ -23,6 +23,30 @@ public class wobkmath : MonoBehaviour {
         float Distance = VectorDifference.sqrMagnitude;
         return Distance;
     }
+    public Transform MoveTowards(Transform obj1, Transform obj2, float Amount, bool MoveAwayFrom, bool KeepRotation)
+    {
+        //used to rotate the object back to its original rotation
+        Quaternion old = obj1.transform.rotation;
+
+        if (!MoveAwayFrom)
+        {
+            obj1.transform.LookAt(obj2);
+            obj1.transform.Translate(Vector3.forward * Amount * Time.deltaTime);
+            if (KeepRotation)
+                obj1.rotation = old;
+            return obj1.transform;
+        }
+        else
+        {
+            obj1.transform.LookAt(obj2);
+            obj1.transform.Rotate(0, 180, 0);
+            obj1.transform.Translate(Vector3.forward * Amount * Time.deltaTime);
+            obj1.transform.Rotate(0, 180, 0);
+            if (KeepRotation)
+                obj1.rotation = old;
+            return obj1.transform;
+        }
+    }
 
     #endregion
 

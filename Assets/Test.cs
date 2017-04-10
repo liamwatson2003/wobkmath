@@ -6,7 +6,10 @@ public class Test : MonoBehaviour {
 
     public GameObject test1;
     public GameObject test2;
-    float distance;
+    public float Amount = 0;
+    public bool MoveAway = false;
+    public bool KeepOriginalFacing = false;
+   
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +18,7 @@ public class Test : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        distance = wobkmath.Instance.GetMag(test1.transform, test2.transform);
-        Debug.Log(distance);
+            wobkmath.Instance.MoveTowards(test1.transform, test2.transform, Amount, MoveAway, KeepOriginalFacing);
+        
 	}
 }
