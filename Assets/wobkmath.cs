@@ -27,6 +27,7 @@ public class wobkmath : MonoBehaviour {
     {
         //used to rotate the object back to its original rotation
         Quaternion old = obj1.transform.rotation;
+        
 
         if (!MoveAwayFrom)
         {
@@ -46,6 +47,27 @@ public class wobkmath : MonoBehaviour {
                 obj1.rotation = old;
             return obj1.transform;
         }
+    }
+
+    //homing missile
+    public Transform HomingMissile(Transform Obj, Transform TargetObj, float RocketSpeed, float RocketRotate)
+    {
+
+        Obj.transform.rotation = Quaternion.Slerp(Obj.transform.rotation, Quaternion.LookRotation(TargetObj.transform.position - Obj.transform.position), RocketRotate * Time.deltaTime);
+        Obj.transform.Translate (transform.forward * RocketSpeed * Time.deltaTime);
+
+        return Obj.transform;
+    }
+
+    //gravity /// dont forget to add the this to the object that is asking for grav calc /// Velocity += 9.81f * Time.deltaTime;
+    public Transform Gravity(Transform Obj, float Gravscale, float Velocity, float Maxspeed)
+    {
+        
+        Velocity *=  Gravscale;
+        if (Velocity > Maxspeed)
+        { Velocity = Maxspeed; }
+        Obj.transform.position += Vector3.down * Velocity* Time.deltaTime;
+        return Obj.transform;
     }
 
     #endregion
